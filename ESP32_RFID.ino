@@ -49,8 +49,10 @@ void readRFID(void ) { /* function readRFID */
   for (byte i = 0; i < 4; i++) {
       nuidPICC[i] = rfid.uid.uidByte[i];
   }
-  Serial.print(F("RFID In dec: "));
-  printDec(rfid.uid.uidByte, rfid.uid.size);
+
+  Serial.print(F("\"rfid\":\""));
+  printHex(rfid.uid.uidByte, rfid.uid.size);
+  Serial.print(F("\""));
   Serial.println();
   // Halt PICC
   rfid.PICC_HaltA();
@@ -62,7 +64,7 @@ void readRFID(void ) { /* function readRFID */
 */
 void printHex(byte *buffer, byte bufferSize) {
   for (byte i = 0; i < bufferSize; i++) {
-      Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+      Serial.print(buffer[i] < 0x10 ? " 0" : "");
       Serial.print(buffer[i], HEX);
   }
 }
